@@ -18,4 +18,15 @@ https://databaserefactoring.com/
 
 versões do BD
 
+- Problema: 
+    se editar sem mudar nada, fala que tipo de cozinha ja existe
 
+no BD tem:
+
+79 Francesa
+
+Editar a Francesa (id é 79) e salvar sem mudar nada
+
+tipoDeCozinhaRepository.existsByNome("Francesa")
+
+Temos que verificar se é um nome que já existe, com um ID diferente
