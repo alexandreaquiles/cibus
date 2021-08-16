@@ -1,5 +1,6 @@
 package br.com.cibus.tipodecozinha;
 
+import lombok.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.constraints.Min;
@@ -11,6 +12,10 @@ import java.util.function.LongFunction;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+@Builder
+@Data
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor
 public class TipoDeCozinhaParaEdicaoForm {
 
     @NotNull
@@ -20,22 +25,6 @@ public class TipoDeCozinhaParaEdicaoForm {
     @NotBlank
     @Size(min=1, max = 50)
     private String nome;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     TipoDeCozinha toEntity(LongFunction<Optional<TipoDeCozinha>> buscadorDeTipoDeCozinha) {
         TipoDeCozinha tipoDeCozinha = buscadorDeTipoDeCozinha.apply(id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));

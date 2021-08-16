@@ -21,7 +21,7 @@ public class TipoDeCozinhaParaAdicaoFormValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         TipoDeCozinhaParaAdicaoForm form = (TipoDeCozinhaParaAdicaoForm) target;
-        if(tipoDeCozinhaRepository.existsByNome(form.getNome())) {
+        if(tipoDeCozinhaRepository.existsByNome(form.nome())) {
             errors.rejectValue("nome", "tipo.de.cozinha.nome.ja.existente");
         }
     }

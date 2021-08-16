@@ -23,8 +23,7 @@ class TipoDeCozinhaParaAdicaoFormValidatorTest {
     void quando_nome_ja_existe_deve_dar_erro() {
         when(repository.existsByNome("Mexicana")).thenReturn(true);
 
-        var form = new TipoDeCozinhaParaAdicaoForm();
-        form.setNome("Mexicana");
+        var form = new TipoDeCozinhaParaAdicaoForm("Mexicana");
 
         formValidator.validate(form, errors);
 
@@ -33,8 +32,7 @@ class TipoDeCozinhaParaAdicaoFormValidatorTest {
 
     @Test
     void quando_nome_nao_existe_nao_deve_dar_erro() {
-        var form = new TipoDeCozinhaParaAdicaoForm();
-        form.setNome("Francesa");
+        var form = new TipoDeCozinhaParaAdicaoForm("Francesa");
 
         formValidator.validate(form, errors);
 

@@ -27,9 +27,11 @@ class TipoDeCozinhaParaEdicaoFormValidatorTest {
 
     @Test
     void nao_deve_dar_erro_quando_nome_ja_existe_e_id_for_o_mesmo() {
-        var form = new TipoDeCozinhaParaEdicaoForm();
-        form.setId(1L);
-        form.setNome("Mexicana");
+        var form = new TipoDeCozinhaParaEdicaoForm
+                .TipoDeCozinhaParaEdicaoFormBuilder()
+                .id(1L)
+                .nome("Mexicana")
+                .build();
 
         formValidator.validate(form, errors);
 
@@ -38,9 +40,11 @@ class TipoDeCozinhaParaEdicaoFormValidatorTest {
 
     @Test
     void deve_dar_erro_quando_o_nome_ja_existe_mas_id_for_diferente() {
-        var form = new TipoDeCozinhaParaEdicaoForm();
-        form.setId(999L);
-        form.setNome("Mexicana");
+        var form = new TipoDeCozinhaParaEdicaoForm
+                .TipoDeCozinhaParaEdicaoFormBuilder()
+                .id(999L)
+                .nome("Mexicana")
+                .build();
 
         formValidator.validate(form, errors);
 
@@ -49,9 +53,11 @@ class TipoDeCozinhaParaEdicaoFormValidatorTest {
 
     @Test
     void nao_deve_dar_erro_quando_nome_nao_existe_para_o_id() {
-        var form = new TipoDeCozinhaParaEdicaoForm();
-        form.setId(1L);
-        form.setNome("Italiana");
+        var form = new TipoDeCozinhaParaEdicaoForm
+                .TipoDeCozinhaParaEdicaoFormBuilder()
+                .id(1L)
+                .nome("Italiana")
+                .build();
 
         formValidator.validate(form, errors);
 
@@ -60,9 +66,11 @@ class TipoDeCozinhaParaEdicaoFormValidatorTest {
 
     @Test
     void nao_deve_dar_erro_quando_nome_nao_existe_e_id_eh_diferente() {
-        var form = new TipoDeCozinhaParaEdicaoForm();
-        form.setId(99L);
-        form.setNome("Italiana");
+        var form = new TipoDeCozinhaParaEdicaoForm
+                .TipoDeCozinhaParaEdicaoFormBuilder()
+                .id(99L)
+                .nome("Italiana")
+                .build();
 
         formValidator.validate(form, errors);
 
