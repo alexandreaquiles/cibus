@@ -9,9 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.data.projection.ProjectionFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -33,6 +35,8 @@ public class TipoDeCozinhaControllerTest {
     private TipoDeCozinhaRepository tipoDeCozinhaRepository;
 
     private ObjectMapper jsonParser = new ObjectMapper();
+
+    private ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
 
     @Test
     void deveCriarNovoTipoDeCozinha() throws Exception {
@@ -68,7 +72,13 @@ public class TipoDeCozinhaControllerTest {
 
     @Test
     void deveRetornarRelatorioDeRestaurantesPorTiposDeCozinha() throws Exception {
-        List<RestaurantesPorTipoDeCozinha> relatorio = List.of();
+        Map<String, Object> backingMap = Map.of(
+                "nomeDoTipoDeCozinha", "Arabe",
+                "totalDeRestaurantes", 1L
+        );
+        var restaurantesPorTipoDeCozinha = factory.createProjection(RestaurantesPorTipoDeCozinha.class, backingMap);
+
+        List<RestaurantesPorTipoDeCozinha> relatorio = List.of(restaurantesPorTipoDeCozinha);
         when(tipoDeCozinhaRepository.contaRestaurantesPorTipoDeCozinha()).thenReturn(relatorio);
 
         MvcResult mvcResult = mockMvc.perform(get("/relatorio-restaurantes-por-tipo-de-cozinha"))
@@ -76,9 +86,12 @@ public class TipoDeCozinhaControllerTest {
                 .andReturn();
 
         String responseJson = mvcResult.getResponse().getContentAsString();
-        List<Map<String, String>> responseData = jsonParser.readValue(responseJson, List.class);
+        List<Map<String, Object>> responseData = jsonParser.readValue(responseJson, List.class);
 
-        assertThat(responseData).isEmpty();
+        assertThat(responseData).hasSize(1);
+        assertThat(responseData.get(0))
+                .containsEntry("nomeDoTipoDeCozinha", "Arabe")
+                .containsEntry("totalDeRestaurantes", 1);
 
         verify(tipoDeCozinhaRepository).contaRestaurantesPorTipoDeCozinha();
         verifyNoMoreInteractions(tipoDeCozinhaRepository);
