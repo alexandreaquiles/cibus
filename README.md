@@ -27,6 +27,8 @@ Usamos as seguintes tecnologias:
 - Spring Data JPA
 - Flyway DB, para migrations
 - MySQL 8+
+- Docker Compose para executar a infra
+- Coleções do Postman para testes
 
 ### O que já está feito no projeto
 
