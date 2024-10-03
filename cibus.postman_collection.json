@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "fbd0d4d2-89e8-4561-9ca1-da822c06d0e6",
+		"name": "cibus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2489523"
+	},
+	"item": [
+		{
+			"name": "lista tipos de cozinha",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tipos-de-cozinha",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tipos-de-cozinha"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adiciona tipo de cozinha",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"nome\": \"Vietnamita\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/tipos-de-cozinha",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tipos-de-cozinha"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
