@@ -1,5 +1,6 @@
 package br.com.cibus;
 
+import br.com.cibus.tipodecozinha.RestaurantesPorTipoDeCozinha;
 import br.com.cibus.tipodecozinha.TipoDeCozinha;
 import br.com.cibus.tipodecozinha.TipoDeCozinhaController;
 import br.com.cibus.tipodecozinha.TipoDeCozinhaRepository;
@@ -62,6 +63,24 @@ public class TipoDeCozinhaControllerTest {
         assertThat(responseData).hasSize(2);
 
         verify(tipoDeCozinhaRepository).findAll();
+        verifyNoMoreInteractions(tipoDeCozinhaRepository);
+    }
+
+    @Test
+    void deveRetornarRelatorioDeRestaurantesPorTiposDeCozinha() throws Exception {
+        List<RestaurantesPorTipoDeCozinha> relatorio = List.of();
+        when(tipoDeCozinhaRepository.contaRestaurantesPorTipoDeCozinha()).thenReturn(relatorio);
+
+        MvcResult mvcResult = mockMvc.perform(get("/relatorio-restaurantes-por-tipo-de-cozinha"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String responseJson = mvcResult.getResponse().getContentAsString();
+        List<Map<String, String>> responseData = jsonParser.readValue(responseJson, List.class);
+
+        assertThat(responseData).isEmpty();
+
+        verify(tipoDeCozinhaRepository).contaRestaurantesPorTipoDeCozinha();
         verifyNoMoreInteractions(tipoDeCozinhaRepository);
     }
 

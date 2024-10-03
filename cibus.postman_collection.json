@@ -52,6 +52,25 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "relatório quantidade restaurantes por tipos de cozinha",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/relatorio-quantidade-por-tipo-de-cozinha",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"relatorio-quantidade-por-tipo-de-cozinha"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
